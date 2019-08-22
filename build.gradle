@@ -1,0 +1,34 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.7.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+}
+
+group = 'brian.template.boot'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'io.springfox:springfox-swagger2:2.9.2'        // To usw Swagger
+    compile 'io.springfox:springfox-swagger-ui:2.9.2'      // To show Swagger UI
+	compile 'io.swagger:swagger-codegen-maven-plugin:2.4.7'
+	
+	compile 'com.google.code.gson:gson:2.8.5'
+	
+	compile 'io.swagger:swagger-codegen:2.1.5'
+	
+	compile 'io.swagger:swagger-codegen-cli:2.1.2'
+	compile 'io.swagger:swagger-core:1.5.0'
+	compile 'io.swagger:swagger-models:1.5.17'
+	
+	
+	compile 'io.swagger.codegen.v3:swagger-generator:3.0.10'
+	
+	
+	testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
