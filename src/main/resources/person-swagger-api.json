@@ -36,7 +36,7 @@
 					"200": {
 						"description": "OK",
 						"schema": {
-							"$ref": "#/definitions/Hello"
+							"$ref": "#/definitions/Person"
 						}
 					},
 					"401": {
@@ -52,13 +52,64 @@
 				"deprecated": false
 			}
 		},
-		"/search/{name}": {
+		"/person": {
+			"post": {
+				"tags": [
+					"boot-controller"
+				],
+				"summary": "addPerson",
+				"operationId": "addPersonUsingPOST",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "age",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "name",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Person"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/person/{name}": {
 			"get": {
 				"tags": [
 					"boot-controller"
 				],
-				"summary": "searchByName",
-				"operationId": "searchByNameUsingGET",
+				"summary": "getPerson",
+				"operationId": "getPersonUsingGET",
 				"produces": [
 					"*/*"
 				],
@@ -75,9 +126,48 @@
 					"200": {
 						"description": "OK",
 						"schema": {
+							"$ref": "#/definitions/Person"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/search": {
+			"get": {
+				"tags": [
+					"boot-controller"
+				],
+				"summary": "searchByName",
+				"operationId": "searchByNameUsingGET",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "name",
+						"in": "query",
+						"description": "name",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
 							"type": "array",
 							"items": {
-								"$ref": "#/definitions/Hello"
+								"$ref": "#/definitions/Person"
 							}
 						}
 					},
@@ -96,7 +186,7 @@
 		}
 	},
 	"definitions": {
-		"Hello": {
+		"Person": {
 			"type": "object",
 			"properties": {
 				"age": {
@@ -107,7 +197,7 @@
 					"type": "string"
 				}
 			},
-			"title": "Hello"
+			"title": "Person"
 		}
 	}
 }
