@@ -44,13 +44,24 @@ sourceSets {
 
 dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-web'
-//    compile('io.springfox:springfox-swagger2:2.9.2')        // To usw Swagger
+    compile 'io.springfox:springfox-swagger2:2.9.2'
 	
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
 	
 	generatedCompile 'org.springframework.boot:spring-boot-starter-data-rest'
     generatedCompile 'io.springfox:springfox-swagger2:2.9.2'
     generatedCompile 'io.springfox:springfox-swagger-ui:2.9.2'
+}
+
+//======================= Tasks =============================================
+defaultTasks 'clean', 'generateApi', 'cleanEclipse', 'eclipse',  'build'
+
+eclipse {
+    project{
+        natures 'org.springsource.ide.eclipse.gradle.core.nature',
+                'org.springframework.ide.eclipse.core.springnature',
+                'org.eclipse.buildship.core.gradleprojectnature'
+    }
 }
 
 //--- Swagger Code Gen ---------------------------------

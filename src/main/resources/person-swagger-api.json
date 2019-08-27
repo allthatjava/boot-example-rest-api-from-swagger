@@ -67,17 +67,12 @@
 				],
 				"parameters": [
 					{
-						"name": "age",
-						"in": "query",
-						"required": false,
-						"type": "integer",
-						"format": "int32"
-					},
-					{
-						"name": "name",
-						"in": "query",
-						"required": false,
-						"type": "string"
+						"name": "post",
+						"in": "body",
+						"required": true,
+						"schema": {
+						  "$ref": "#/definitions/Person"
+						}
 					}
 				],
 				"responses": {

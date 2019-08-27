@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import brian.temp.spring.boot.api.DefaultApi;
@@ -35,15 +37,12 @@ public class BootController implements DefaultApi, PersonApi, SearchApi
 	}
 
 	@Override
-	public ResponseEntity<Person> addPersonUsingPOST(Integer age, String name) {
-		Person p = new Person();
-		p.setAge(age);
-		p.setName(name);
-		return new ResponseEntity<>( service.addPersonalInfo(p), HttpStatus.OK );
+	public ResponseEntity<Person> addPersonUsingPOST(@RequestBody Person person) {
+		return new ResponseEntity<>( service.addPersonalInfo(person), HttpStatus.OK );
 	}
 
 	@Override
-	public ResponseEntity<Person> getPersonUsingGET(String name) {
+	public ResponseEntity<Person> getPersonUsingGET(@PathVariable("name") String name) {
 		System.out.println("PathVariable name:"+name);
 		Optional<Person> person = service.getPerson(name);
 		if( person.isPresent() ) {
