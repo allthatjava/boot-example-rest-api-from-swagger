@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import brian.template.boot.rest.controller.exception.PersonNotFoundException;
-import brian.template.boot.rest.controller.exception.SamePersonAlreadyExistException;
+import brian.template.boot.rest.exception.PersonNotFoundException;
+import brian.template.boot.rest.exception.SamePersonAlreadyExistException;
 import brian.template.boot.rest.model.ApiError;
 
 @ControllerAdvice

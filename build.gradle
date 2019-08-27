@@ -88,4 +88,3 @@ jar {
 compileGeneratedJava.dependsOn generateApi
 classes.dependsOn generatedClasses
 compileJava.dependsOn compileGeneratedJava
-eclipse.dependOn generateApi

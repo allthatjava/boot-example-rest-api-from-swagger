@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import javax.validation.constraints.*;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-08-26T15:31:10.852-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-08-26T22:57:01.613-04:00")
 
 @Api(value = "search", description = "the search API")
 public interface SearchApi {
@@ -27,7 +27,7 @@ public interface SearchApi {
         @ApiResponse(code = 403, message = "Forbidden", response = Person.class),
         @ApiResponse(code = 404, message = "Not Found", response = Person.class) })
     @RequestMapping(value = "/search",
-        produces = { "*/*" }, 
+        produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<List<Person>> searchByNameUsingGET( @NotNull @ApiParam(value = "name", required = true) @RequestParam(value = "name", required = true) String name);
 

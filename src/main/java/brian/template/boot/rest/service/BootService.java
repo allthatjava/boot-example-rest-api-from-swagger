@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import brian.temp.spring.boot.model.Person;
-import brian.template.boot.rest.controller.exception.SamePersonAlreadyExistException;
+import brian.template.boot.rest.exception.SamePersonAlreadyExistException;
 
 @Service
 public class BootService {

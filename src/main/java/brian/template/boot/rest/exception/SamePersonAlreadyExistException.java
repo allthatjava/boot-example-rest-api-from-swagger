@@ -1,4 +1,4 @@
-package brian.template.boot.rest.controller.exception;
+package brian.template.boot.rest.exception;
 
 public class SamePersonAlreadyExistException extends RuntimeException{
 

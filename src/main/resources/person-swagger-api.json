@@ -30,7 +30,7 @@
 				"summary": "getHello",
 				"operationId": "getHelloUsingGET",
 				"produces": [
-					"*/*"
+					"application/json"
 				],
 				"responses": {
 					"200": {
@@ -63,7 +63,7 @@
 					"application/json"
 				],
 				"produces": [
-					"*/*"
+					"application/json"
 				],
 				"parameters": [
 					{
@@ -111,7 +111,7 @@
 				"summary": "getPerson",
 				"operationId": "getPersonUsingGET",
 				"produces": [
-					"*/*"
+					"application/json"
 				],
 				"parameters": [
 					{
@@ -150,7 +150,7 @@
 				"summary": "searchByName",
 				"operationId": "searchByNameUsingGET",
 				"produces": [
-					"*/*"
+					"application/json"
 				],
 				"parameters": [
 					{

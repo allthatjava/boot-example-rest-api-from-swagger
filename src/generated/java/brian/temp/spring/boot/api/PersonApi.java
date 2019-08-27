@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import javax.validation.constraints.*;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-08-26T15:31:10.852-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-08-26T22:57:01.613-04:00")
 
 @Api(value = "person", description = "the person API")
 public interface PersonApi {
@@ -28,7 +28,7 @@ public interface PersonApi {
         @ApiResponse(code = 403, message = "Forbidden", response = Person.class),
         @ApiResponse(code = 404, message = "Not Found", response = Person.class) })
     @RequestMapping(value = "/person",
-        produces = { "*/*" }, 
+        produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
     ResponseEntity<Person> addPersonUsingPOST( @ApiParam(value = "") @RequestParam(value = "age", required = false) Integer age,
@@ -42,7 +42,7 @@ public interface PersonApi {
         @ApiResponse(code = 403, message = "Forbidden", response = Person.class),
         @ApiResponse(code = 404, message = "Not Found", response = Person.class) })
     @RequestMapping(value = "/person/{name}",
-        produces = { "*/*" }, 
+        produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<Person> getPersonUsingGET(@ApiParam(value = "name",required=true ) @PathVariable("name") String name);
 
