@@ -1,3 +1,6 @@
+import io.swagger.codegen.config.CodegenConfigurator
+import io.swagger.codegen.DefaultGenerator
+
 buildscript {
     repositories {
         mavenCentral()
@@ -6,10 +9,6 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.7.RELEASE")
         classpath('io.swagger:swagger-codegen:2.2.2')
     }
-}
-
-configurations {
-  generatedCompile
 }
 
 apply plugin: 'java'
@@ -23,6 +22,10 @@ sourceCompatibility = '1.8'
 
 repositories {
 	mavenCentral()
+}
+
+configurations {
+  generatedCompile
 }
 
 sourceSets {
@@ -41,7 +44,7 @@ sourceSets {
 
 dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-web'
-    compile('io.springfox:springfox-swagger2:2.9.2')        // To usw Swagger
+//    compile('io.springfox:springfox-swagger2:2.9.2')        // To usw Swagger
 	
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
 	
@@ -51,9 +54,6 @@ dependencies {
 }
 
 //--- Swagger Code Gen ---------------------------------
-import io.swagger.codegen.config.CodegenConfigurator
-import io.swagger.codegen.DefaultGenerator
-
 def swaggerSourceFile = 'src/main/resources/person-swagger-api.json'
 def swaggerTargetFolder = 'src/generated/java'
  
@@ -77,11 +77,6 @@ task generateApi {
   }
 }
 
-compileGeneratedJava.dependsOn generateApi
-classes.dependsOn generatedClasses
-compileJava.dependsOn compileGeneratedJava
-
-
 bootRun {
     classpath += sourceSets.generated.output
 }
@@ -89,3 +84,8 @@ bootRun {
 jar {
     from sourceSets.generated.output
 }
+
+compileGeneratedJava.dependsOn generateApi
+classes.dependsOn generatedClasses
+compileJava.dependsOn compileGeneratedJava
+eclipse.dependOn generateApi
