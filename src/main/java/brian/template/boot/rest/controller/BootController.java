@@ -60,4 +60,11 @@ public class BootController implements DefaultApi, PersonApi, SearchApi
 		p.setAge(99);
 		return new ResponseEntity<>( p, HttpStatus.OK );
 	}
+
+	@Override
+	public ResponseEntity<Person> deletePersonUsingDELETE(@PathVariable("name") String name) {
+		
+		Person p = service.deletePerson(name);
+		return new ResponseEntity<>(p, HttpStatus.OK);
+	}
 }

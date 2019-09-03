@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import javax.validation.constraints.*;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-08-27T11:21:58.359-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-09-03T14:44:14.680-04:00")
 
 @Api(value = "person", description = "the person API")
 public interface PersonApi {
@@ -32,6 +32,15 @@ public interface PersonApi {
         consumes = { "application/json" },
         method = RequestMethod.POST)
     ResponseEntity<Person> addPersonUsingPOST(@ApiParam(value = "" ,required=true ) @RequestBody Person post);
+
+
+    @ApiOperation(value = "deletePerson", notes = "", response = Person.class, tags={ "boot-controller", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "OK", response = Person.class) })
+    @RequestMapping(value = "/person/{name}",
+        produces = { "application/json" }, 
+        method = RequestMethod.DELETE)
+    ResponseEntity<Person> deletePersonUsingDELETE(@ApiParam(value = "name",required=true ) @PathVariable("name") String name);
 
 
     @ApiOperation(value = "getPerson", notes = "", response = Person.class, tags={ "boot-controller", })

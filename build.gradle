@@ -24,8 +24,14 @@ repositories {
 	mavenCentral()
 }
 
+sourceSets {
+}
+
 configurations {
-  generatedCompile
+    generatedCompile
+
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
 }
 
 sourceSets {
@@ -40,6 +46,17 @@ sourceSets {
     compileClasspath += generated.output
     runtimeClasspath += generated.output
   }
+  
+  integrationTest {
+    java {
+        compileClasspath += main.output + test.output + generated.output
+        runtimeClasspath += main.output + test.output + generated.output
+        srcDir file('src/integrationTest/java')
+    }
+    resources {
+        srcDirs 'src/integrationTest/resources'
+    }
+  }
 }
 
 dependencies {
@@ -51,6 +68,9 @@ dependencies {
 	generatedCompile 'org.springframework.boot:spring-boot-starter-data-rest'
     generatedCompile 'io.springfox:springfox-swagger2:2.9.2'
     generatedCompile 'io.springfox:springfox-swagger-ui:2.9.2'
+    
+    integrationTestCompile 'org.springframework.boot:spring-boot-starter-test'
+    integrationTestCompile 'org.assertj:assertj-core'
 }
 
 //======================= Tasks =============================================
@@ -94,6 +114,11 @@ bootRun {
 
 jar {
     from sourceSets.generated.output
+}
+
+task integrationTest(type: Test) {
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
 }
 
 compileGeneratedJava.dependsOn generateApi

@@ -135,7 +135,34 @@
 					}
 				},
 				"deprecated": false
-			}
+			},
+            "delete": {
+                "tags": [
+                    "boot-controller"
+                ],
+                "summary": "deletePerson",
+                "operationId": "deletePersonUsingDELETE",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "name",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Person"
+                        }
+                    }
+                }
+            }
 		},
 		"/search": {
 			"get": {

@@ -18,13 +18,13 @@ public class BootService {
 	public BootService() {
 		people = new ArrayList<>();
 		Person p1 = new Person();
-		p1.setAge(20);;
+		p1.setAge(20);
 		p1.setName("Bob");
 		Person p2 = new Person();
-		p2.setAge(35);;
+		p2.setAge(35);
 		p2.setName("Harry");
 		Person p3 = new Person();
-		p3.setAge(44);;
+		p3.setAge(44);
 		p3.setName("Barnie");
 		
 		people.add(p1);
@@ -56,5 +56,14 @@ public class BootService {
 		return people.stream()
 				.filter(p-> name.equals(p.getName()))
 				.findFirst();
+	}
+	
+	public Person deletePerson(String name) {
+		
+		Person reducedPeople = people.stream().filter(p -> p.getName().equals(name)).findFirst().get();
+		
+		people.removeIf(p -> p.getName().equals(name));
+
+		return reducedPeople;
 	}
 }
