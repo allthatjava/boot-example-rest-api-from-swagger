@@ -107,3 +107,4 @@ From the generated code, *Controller.java files are where you can put your logic
 
 # References #
 * [https://blog.jcore.com/2017/05/22/automatically-generating-api-using-swagger-and-gradle/](https://blog.jcore.com/2017/05/22/automatically-generating-api-using-swagger-and-gradle/)
+* [https://swagger.io/docs/specification/about/](https://swagger.io/docs/specification/about/)
