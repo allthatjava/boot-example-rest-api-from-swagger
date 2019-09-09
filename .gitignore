@@ -58,3 +58,6 @@ bin/
 hs_err_pid*
 
 docs/output/
+**/generated/
+.swagger-codegen/
+
