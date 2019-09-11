@@ -1,4 +1,4 @@
-package brian.template.boot.rest.model;
+package brian.example.boot.rest.model;
 
 import java.time.LocalDateTime;
 

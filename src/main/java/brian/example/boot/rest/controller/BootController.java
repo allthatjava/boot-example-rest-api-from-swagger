@@ -1,4 +1,4 @@
-package brian.template.boot.rest.controller;
+package brian.example.boot.rest.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import brian.temp.spring.boot.api.DefaultApi;
-import brian.temp.spring.boot.api.PersonApi;
-import brian.temp.spring.boot.api.SearchApi;
-import brian.temp.spring.boot.model.Person;
-import brian.template.boot.rest.exception.PersonNotFoundException;
-import brian.template.boot.rest.service.BootService;
+import brian.example.boot.api.DefaultApi;
+import brian.example.boot.api.PersonApi;
+import brian.example.boot.api.SearchApi;
+import brian.example.boot.model.Person;
+import brian.example.boot.rest.exception.PersonNotFoundException;
+import brian.example.boot.rest.service.BootService;
 
 @RestController
 public class BootController implements DefaultApi, PersonApi, SearchApi

@@ -1,4 +1,4 @@
-package brian.template.boot.rest.exception;
+package brian.example.boot.rest.exception;
 
 public class PersonNotFoundException extends RuntimeException{
 

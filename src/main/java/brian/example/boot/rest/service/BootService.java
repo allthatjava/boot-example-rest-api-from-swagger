@@ -1,4 +1,4 @@
-package brian.template.boot.rest.service;
+package brian.example.boot.rest.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import brian.temp.spring.boot.model.Person;
-import brian.template.boot.rest.exception.SamePersonAlreadyExistException;
+import brian.example.boot.model.Person;
+import brian.example.boot.rest.exception.SamePersonAlreadyExistException;
 
 @Service
 public class BootService {
