@@ -30,7 +30,7 @@
 				"summary": "getHello",
 				"operationId": "getHelloUsingGET",
 				"produces": [
-					"*/*"
+					"application/json"
 				],
 				"responses": {
 					"200": {
@@ -63,21 +63,16 @@
 					"application/json"
 				],
 				"produces": [
-					"*/*"
+					"application/json"
 				],
 				"parameters": [
 					{
-						"name": "age",
-						"in": "query",
-						"required": false,
-						"type": "integer",
-						"format": "int32"
-					},
-					{
-						"name": "name",
-						"in": "query",
-						"required": false,
-						"type": "string"
+						"name": "post",
+						"in": "body",
+						"required": true,
+						"schema": {
+						  "$ref": "#/definitions/Person"
+						}
 					}
 				],
 				"responses": {
@@ -111,7 +106,7 @@
 				"summary": "getPerson",
 				"operationId": "getPersonUsingGET",
 				"produces": [
-					"*/*"
+					"application/json"
 				],
 				"parameters": [
 					{
@@ -140,7 +135,34 @@
 					}
 				},
 				"deprecated": false
-			}
+			},
+            "delete": {
+                "tags": [
+                    "boot-controller"
+                ],
+                "summary": "deletePerson",
+                "operationId": "deletePersonUsingDELETE",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "name",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Person"
+                        }
+                    }
+                }
+            }
 		},
 		"/search": {
 			"get": {
@@ -150,7 +172,7 @@
 				"summary": "searchByName",
 				"operationId": "searchByNameUsingGET",
 				"produces": [
-					"*/*"
+					"application/json"
 				],
 				"parameters": [
 					{

@@ -1,15 +1,14 @@
+import io.swagger.codegen.config.CodegenConfigurator
+import io.swagger.codegen.DefaultGenerator
+
 buildscript {
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.7.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
         classpath('io.swagger:swagger-codegen:2.2.2')
     }
-}
-
-configurations {
-  generatedCompile
 }
 
 apply plugin: 'java'
@@ -26,6 +25,16 @@ repositories {
 }
 
 sourceSets {
+}
+
+configurations {
+    generatedCompile
+
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}
+
+sourceSets {
   generated {
     compileClasspath = configurations.generatedCompile
   }
@@ -37,23 +46,47 @@ sourceSets {
     compileClasspath += generated.output
     runtimeClasspath += generated.output
   }
+  
+  integrationTest {
+    java {
+        compileClasspath += main.output + test.output + generated.output
+        runtimeClasspath += main.output + test.output + generated.output
+        srcDir file('src/integrationTest/java')
+    }
+    resources {
+        srcDirs 'src/integrationTest/resources'
+    }
+  }
 }
 
 dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-web'
-    compile('io.springfox:springfox-swagger2:2.9.2')        // To usw Swagger
+    compile 'io.springfox:springfox-swagger2:2.9.2'
+    compile 'org.apache.commons:commons-io:1.3.2'
+
 	
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
 	
 	generatedCompile 'org.springframework.boot:spring-boot-starter-data-rest'
     generatedCompile 'io.springfox:springfox-swagger2:2.9.2'
     generatedCompile 'io.springfox:springfox-swagger-ui:2.9.2'
+    
+    integrationTestCompile 'org.springframework.boot:spring-boot-starter-test'
+    integrationTestCompile 'org.assertj:assertj-core'
+}
+
+//======================= Tasks =============================================
+defaultTasks 'clean', 'generateApi', 'cleanEclipse', 'eclipse',  'build'
+
+eclipse {
+    project{
+        natures 'org.springsource.ide.eclipse.gradle.core.nature',
+                'org.springframework.ide.eclipse.core.springnature',
+                'org.eclipse.buildship.core.gradleprojectnature'
+    }
 }
 
 //--- Swagger Code Gen ---------------------------------
-import io.swagger.codegen.config.CodegenConfigurator
-import io.swagger.codegen.DefaultGenerator
-
 def swaggerSourceFile = 'src/main/resources/person-swagger-api.json'
 def swaggerTargetFolder = 'src/generated/java'
  
@@ -69,18 +102,13 @@ task generateApi {
     config.setLang('spring')
     config.setAdditionalProperties([
         'interfaceOnly' : 'true',
-        'apiPackage'    : 'brian.temp.spring.boot.api',
-        'modelPackage'  : 'brian.temp.spring.boot.model',
+        'apiPackage'    : 'brian.example.boot.api',
+        'modelPackage'  : 'brian.example.boot.model',
         'sourceFolder'  : swaggerTargetFolder
     ])
     new DefaultGenerator().opts(config.toClientOptInput()).generate()
   }
 }
-
-compileGeneratedJava.dependsOn generateApi
-classes.dependsOn generatedClasses
-compileJava.dependsOn compileGeneratedJava
-
 
 bootRun {
     classpath += sourceSets.generated.output
@@ -89,3 +117,12 @@ bootRun {
 jar {
     from sourceSets.generated.output
 }
+
+task integrationTest(type: Test) {
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+}
+
+compileGeneratedJava.dependsOn generateApi
+classes.dependsOn generatedClasses
+compileJava.dependsOn compileGeneratedJava
