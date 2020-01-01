@@ -1,21 +1,20 @@
-package brian.temp.spring.boot.rest.controller;
+package brian.example.boot.rest.rest.controller;
 
-import brian.temp.spring.boot.model.Person;
-import brian.template.boot.rest.controller.BootController;
-import brian.template.boot.rest.service.BootService;
+import brian.example.boot.rest.model.Person;
+import brian.example.boot.rest.controller.BootController;
+import brian.example.boot.rest.controller.BootControllerAdvice;
+import brian.example.boot.rest.exception.PersonNotFoundException;
+import brian.example.boot.rest.service.BootService;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.results.ResultMatchers;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
@@ -44,21 +43,51 @@ public class BootControllerTest extends AbstractRestControllerTest{
     @Before
     public void setUp(){
 
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice(new BootControllerAdvice()) // required if @ControllerAdvice is used
+                .build();
     }
 
-    // Single return JSON object
     @Test
-    public void testGetPersonUsingGET() throws Exception {
+    public void testGetHelloUsingGET() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/")
                     .content(String.valueOf(MediaType.APPLICATION_JSON)))
                 .andExpect(status().isOk())
         .andExpect(jsonPath("$.name", Matchers.is("Hello~") ));
     }
 
+    // Single return JSON object
+    @Test
+    public void testGetPersonUsingGET() throws Exception {
+        // Given
+        Person p = new Person();
+        p.setName("Brian");
+        p.setAge(44);
+
+        // When
+        when(service.getPerson("Brian")).thenReturn(java.util.Optional.of(p));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/person/Brian")
+                .content(String.valueOf(MediaType.APPLICATION_JSON)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", Matchers.is("Brian") ))
+                .andExpect(jsonPath("$.age", Matchers.is(44) ));
+    }
+
+    @Test
+    public void testGetPersonUsingGET_ErrorHandling() throws Exception {
+
+        // When
+        when(service.getPerson("abc")).thenThrow(new PersonNotFoundException("Name:abc was not found"));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/person/abc")
+                .content(String.valueOf(MediaType.APPLICATION_JSON)))
+                .andExpect(status().isNotFound());
+    }
+
     // Multiple JSON objects
     @Test
-    public void testSearchByNameUsingGETGET() throws Exception {
+    public void testSearchByNameUsingGET() throws Exception {
 
         // Given
         List<Person> expected = new ArrayList<>();

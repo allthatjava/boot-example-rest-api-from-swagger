@@ -1,14 +1,14 @@
-package brian.template.boot.rest.controller;
+package brian.example.boot.rest.controller;
 
+import brian.example.boot.rest.exception.PersonNotFoundException;
+import brian.example.boot.rest.exception.SamePersonAlreadyExistException;
+import brian.example.boot.rest.model.ApiError;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import brian.template.boot.rest.exception.PersonNotFoundException;
-import brian.template.boot.rest.exception.SamePersonAlreadyExistException;
-import brian.template.boot.rest.model.ApiError;
 
 @ControllerAdvice
 public class BootControllerAdvice extends ResponseEntityExceptionHandler{
@@ -26,4 +26,12 @@ public class BootControllerAdvice extends ResponseEntityExceptionHandler{
 		apiError.setMessage(ex.getMessage());
 		return new ResponseEntity<>(apiError, apiError.getStatus());
 	}
+
+	@ExceptionHandler(Exception.class)
+	protected ResponseEntity<Object> handlePersonNotFound(Exception ex, WebRequest request){
+		ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR);
+		apiError.setMessage(ex.getMessage());
+		return new ResponseEntity<>(apiError, apiError.getStatus());
+	}
+
 }

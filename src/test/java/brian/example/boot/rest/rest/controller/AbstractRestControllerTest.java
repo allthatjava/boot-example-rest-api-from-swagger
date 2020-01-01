@@ -1,4 +1,4 @@
-package brian.temp.spring.boot.rest.controller;
+package brian.example.boot.rest.rest.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

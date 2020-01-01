@@ -62,13 +62,13 @@ sourceSets {
 dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'io.springfox:springfox-swagger2:2.9.2'
-	
+    compile 'io.springfox:springfox-swagger-ui:2.9.2'   // Optional: Added this to see /swagger-ui.html
+
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
-	
+
 	generatedCompile 'org.springframework.boot:spring-boot-starter-data-rest'
     generatedCompile 'io.springfox:springfox-swagger2:2.9.2'
-    generatedCompile 'io.springfox:springfox-swagger-ui:2.9.2'
-    
+
     integrationTestCompile 'org.springframework.boot:spring-boot-starter-test'
     integrationTestCompile 'org.assertj:assertj-core'
 }
@@ -102,8 +102,8 @@ task generateApi {
     config.setLang('spring')
     config.setAdditionalProperties([
         'interfaceOnly' : 'true',
-        'apiPackage'    : 'brian.temp.spring.boot.api',
-        'modelPackage'  : 'brian.temp.spring.boot.model',
+        'apiPackage'    : 'brian.example.boot.rest.api',
+        'modelPackage'  : 'brian.example.boot.rest.model',
         'sourceFolder'  : swaggerTargetFolder
     ])
     new DefaultGenerator().opts(config.toClientOptInput()).generate()

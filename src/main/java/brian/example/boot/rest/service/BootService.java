@@ -1,14 +1,14 @@
-package brian.template.boot.rest.service;
+package brian.example.boot.rest.service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import brian.example.boot.rest.exception.SamePersonAlreadyExistException;
 import org.springframework.stereotype.Service;
 
-import brian.temp.spring.boot.model.Person;
-import brian.template.boot.rest.exception.SamePersonAlreadyExistException;
+import brian.example.boot.rest.model.Person;
 
 @Service
 public class BootService {
@@ -39,7 +39,7 @@ public class BootService {
 				.collect(Collectors.toList());
 	}
 	
-	public Person addPersonalInfo(Person person) throws SamePersonAlreadyExistException{
+	public Person addPersonalInfo(Person person) throws SamePersonAlreadyExistException {
 		
 		boolean alreadyExist = people.stream()
 			.anyMatch(p -> p.getName().equals(person.getName()) && p.getAge() == person.getAge());
