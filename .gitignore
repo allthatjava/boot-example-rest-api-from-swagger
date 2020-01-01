@@ -58,3 +58,5 @@ bin/
 hs_err_pid*
 
 docs/output/
+src/generated/
+

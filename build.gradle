@@ -15,6 +15,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'jacoco'
 
 group = 'brian.template.boot'
 version = '0.0.1-SNAPSHOT'
@@ -46,7 +47,6 @@ sourceSets {
     compileClasspath += generated.output
     runtimeClasspath += generated.output
   }
-  
   integrationTest {
     java {
         compileClasspath += main.output + test.output + generated.output
@@ -74,8 +74,9 @@ dependencies {
 }
 
 //======================= Tasks =============================================
-defaultTasks 'clean', 'generateApi', 'cleanEclipse', 'eclipse',  'build'
+defaultTasks 'clean', 'generateApi', 'cleanEclipse', 'eclipse',  'build', 'test', 'jacocoTestReport'
 
+//>>>>>>>>>>> Eclipse Natures >>>>>>>>>>>>>>>>>>>>>>
 eclipse {
     project{
         natures 'org.springsource.ide.eclipse.gradle.core.nature',
@@ -83,6 +84,7 @@ eclipse {
                 'org.eclipse.buildship.core.gradleprojectnature'
     }
 }
+//<<<<<<<<<<< Eclipse Natures <<<<<<<<<<<<<<<<<<<<<
 
 //--- Swagger Code Gen ---------------------------------
 def swaggerSourceFile = 'src/main/resources/person-swagger-api.json'
@@ -115,6 +117,34 @@ bootRun {
 jar {
     from sourceSets.generated.output
 }
+
+//>>>>>>>>>>> Jacoco HTML report generates >>>>>>>>>>>>>>>
+jacocoTestReport {
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ['**/BootTemplateRestApi2Application*'])
+        })
+    }
+}
+//<<<<<<<<<<< Jacoco HTML report generates <<<<<<<<<<<<<<<<
+
+//>>>>>>>>>>> Jacoco code coverage ratio check >>>>>>>>>>>>>>>
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.1
+            }
+            excludes = [
+                    'brian.template.boot.rest.BootTemplateRestApi2Application'
+            ]
+        }
+    }
+}
+//  To run coverage verification during the build and fail if it doesn't meet the requirement
+check.dependsOn jacocoTestCoverageVerification
+//<<<<<<<<<<< Jacoco code coverage ratio check <<<<<<<<<<<<<<<<
 
 task integrationTest(type: Test) {
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
