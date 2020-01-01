@@ -62,9 +62,8 @@ public class BootController implements DefaultApi, PersonApi, SearchApi
 	}
 
 	@Override
-	public ResponseEntity<Person> deletePersonUsingDELETE(@PathVariable("name") String name) {
-		
-		Person p = service.deletePerson(name);
-		return new ResponseEntity<>(p, HttpStatus.OK);
+	public ResponseEntity<Void> deletePersonUsingDELETE(String name) {
+		service.deletePerson(name);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

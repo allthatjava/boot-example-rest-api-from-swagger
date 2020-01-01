@@ -22,12 +22,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(MockitoJUnitRunner.class)
-public class BootControllerTest {
+public class BootControllerTest extends AbstractRestControllerTest{
 
     @Mock
     BootService service;
@@ -104,5 +108,35 @@ public class BootControllerTest {
                 .andExpect(jsonPath("$", Matchers.hasSize(2) ))
                 .andExpect(jsonPath("$[*].name",
                         Matchers.containsInAnyOrder("Barnie", "Bob")));
+    }
+
+    // Saving new object
+    @Test
+    public void testAddPersonUsingPOST() throws Exception {
+
+        // Given
+        Person person = new Person();
+        person.setName("Brian");
+        person.setAge(44);
+
+        // When
+        when(service.addPersonalInfo(person)).thenReturn(person);
+
+        // Test and Assert
+        mockMvc.perform(post("/person")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJasonString(person)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", Matchers.is("Brian")));
+    }
+
+    // Delete
+    @Test
+    public void testDeletePersonUsingDELETE() throws Exception {
+
+        mockMvc.perform(delete("/person/Brian"))
+                .andExpect(status().isOk());
+
+        verify(service).deletePerson(anyString());
     }
 }

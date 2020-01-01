@@ -57,13 +57,15 @@ public class BootService {
 				.filter(p-> name.equals(p.getName()))
 				.findFirst();
 	}
-	
-	public Person deletePerson(String name) {
+
+	/**
+	 * Return type is void since JPA object must be removed after delete
+	 * @param name
+	 */
+	public void deletePerson(String name) {
 		
 		Person reducedPeople = people.stream().filter(p -> p.getName().equals(name)).findFirst().get();
 		
 		people.removeIf(p -> p.getName().equals(name));
-
-		return reducedPeople;
 	}
 }
