@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import brian.example.boot.rest.exception.SamePersonAlreadyExistException;
 import org.springframework.stereotype.Service;
 
-import brian.example.boot.model.Person;
-import brian.example.boot.rest.exception.SamePersonAlreadyExistException;
+import brian.example.boot.rest.model.Person;
 
 @Service
 public class BootService {
@@ -39,7 +39,7 @@ public class BootService {
 				.collect(Collectors.toList());
 	}
 	
-	public Person addPersonalInfo(Person person) throws SamePersonAlreadyExistException{
+	public Person addPersonalInfo(Person person) throws SamePersonAlreadyExistException {
 		
 		boolean alreadyExist = people.stream()
 			.anyMatch(p -> p.getName().equals(person.getName()) && p.getAge() == person.getAge());
@@ -57,13 +57,15 @@ public class BootService {
 				.filter(p-> name.equals(p.getName()))
 				.findFirst();
 	}
-	
-	public Person deletePerson(String name) {
+
+	/**
+	 * Return type is void since JPA object must be removed after delete
+	 * @param name
+	 */
+	public void deletePerson(String name) {
 		
 		Person reducedPeople = people.stream().filter(p -> p.getName().equals(name)).findFirst().get();
 		
 		people.removeIf(p -> p.getName().equals(name));
-
-		return reducedPeople;
 	}
 }

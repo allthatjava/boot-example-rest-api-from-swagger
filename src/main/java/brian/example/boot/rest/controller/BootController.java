@@ -3,6 +3,8 @@ package brian.example.boot.rest.controller;
 import java.util.List;
 import java.util.Optional;
 
+import brian.example.boot.rest.exception.PersonNotFoundException;
+import brian.example.boot.rest.service.BootService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import brian.example.boot.api.DefaultApi;
-import brian.example.boot.api.PersonApi;
-import brian.example.boot.api.SearchApi;
-import brian.example.boot.model.Person;
-import brian.example.boot.rest.exception.PersonNotFoundException;
-import brian.example.boot.rest.service.BootService;
+import brian.example.boot.rest.api.DefaultApi;
+import brian.example.boot.rest.api.PersonApi;
+import brian.example.boot.rest.api.SearchApi;
+import brian.example.boot.rest.model.Person;
 
 @RestController
 public class BootController implements DefaultApi, PersonApi, SearchApi
@@ -62,9 +62,8 @@ public class BootController implements DefaultApi, PersonApi, SearchApi
 	}
 
 	@Override
-	public ResponseEntity<Person> deletePersonUsingDELETE(@PathVariable("name") String name) {
-		
-		Person p = service.deletePerson(name);
-		return new ResponseEntity<>(p, HttpStatus.OK);
+	public ResponseEntity<Void> deletePersonUsingDELETE(String name) {
+		service.deletePerson(name);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

@@ -1,4 +1,4 @@
-package brian.example.spring.boot;
+package brian.example.boot.rest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

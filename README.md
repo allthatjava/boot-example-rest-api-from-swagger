@@ -1,10 +1,11 @@
 # Spring Boot Template - RESTful API2
 
-Simple Template for Spring RESTfull Service with Contract Driven Development (Swagger)
+Simple example for Spring RESTful Service with Contract Driven Development (Swagger)
 
 ### Generate Code from Swagger file ###
 
-NOTE: First thing first, add *README.md* and *pom.xml* in the __.swagger-codegen-ignore__ file. Otherwise, your README.md will be replaced by Swagger Code Gen. !!!
+__NOTE__: First thing first, add README.md and pom.xml in the .swagger-codegen-ignore file. 
+Otherwise, your README.md will be replaced by Swagger Code Gen.
 
 Add the following code in gradle script file.
 
@@ -91,7 +92,9 @@ Above code in the Gradle script will let your Gradle command to clean and genera
     ./gradlew clean generateApi
 ```
 ### Alternative way ###
-You can use Swagger Code Gen executable java application. For this example, I've download the swagger-codegen.cli.jar into `docs` directory. You can run the following command from the root directory of the project.
+You can use Swagger Code Gen executable java application. 
+For this example, I've download the swagger-codegen.cli.jar into `docs` directory. 
+You can run the following command from the root directory of the project.
 
 ```
 java -jar docs/swagger-codegen-cli.jar generate -i src/main/resources/person-swagger-api.json -l spring -o output
