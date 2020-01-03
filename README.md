@@ -1,6 +1,8 @@
-# Spring Boot Template - RESTful API2
+# Spring Boot Example - RESTful API application driven by Open API contract
 
-Simple example for Spring RESTful Service with Contract Driven Development (Swagger)
+Simple example for Spring RESTful Service with Contract Driven Development (Swagger).
+Using Swagger code gen, the code (interfaces) will be generated based on the
+Swagger Contract (Open API) - `person-swagger-api.json`
 
 ### Generate Code from Swagger file ###
 
